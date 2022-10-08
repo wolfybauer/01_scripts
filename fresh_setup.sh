@@ -34,3 +34,24 @@ sudo apt install python-tk
 sudo pip3 install pyusb
 sudo pip3 install pyvisa
 sudo pip3 install pyvisa-py
+
+# udev stuff
+UDEV_DEFAULT=01-$(whoami).rules
+echo ENTER NAME FOR UDEV RULES OR LEAVE BLANK TO USE: \(01-$(whoami).rules\):
+read UDEV_IN
+
+if [[ $UDEV_IN == '' ]]; then
+UDEV_NAME=$UDEV_DEFAULT
+else
+IFS='.'
+read -a strarr <<< "$UDEV_IN"
+IFS=' '
+UDEV_NAME="$strarr.rules"
+fi
+
+DIR="/etc/udev/rules.d/"
+TEXT="SUBSYSTEM==\"usb\", GROUP=\"usbusers\", MODE=\"0666\""
+
+echo $DIR$UDEV_NAME
+echo $TEXT
+#echo $TEXT >> $DIR$UDEV_NAME
