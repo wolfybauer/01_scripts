@@ -55,3 +55,11 @@ TEXT="SUBSYSTEM==\"usb\", GROUP=\"usbusers\", MODE=\"0666\""
 echo $DIR$UDEV_NAME
 echo $TEXT
 #echo $TEXT >> $DIR$UDEV_NAME
+
+# also add user to dialout group
+sudo usermod -a -G dialout $USER
+
+
+
+
+# prompt reboot at end
